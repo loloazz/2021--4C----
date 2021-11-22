@@ -9,7 +9,6 @@ from time import ctime
 
 # 把传进去的字符串，转换成字典，将字典的结构为    字符：字符个数
 def Createdic(a):
-
     # 去除空格
     a = a.replace(" ", "")
     # 创建一个空字典
@@ -23,7 +22,7 @@ def Createdic(a):
 # sunday算法比kmp算法要快了不少
 @lru_cache(None)  # 添加缓存
 def sunday(S, T):
-   # return S.find(T)
+    # return S.find(T)
 
     ls, lt = len(S), len(T)
     d = 0
@@ -134,7 +133,9 @@ def load_path():
 
 
 BUF_SIZE = 1024
-STATE = '1'
+STATE = '1'  # 默认的数据状态
+
+
 
 
 class Handler(BaseRequestHandler):
@@ -200,7 +201,12 @@ class Handler(BaseRequestHandler):
                     for line in lines:
                         c_score.append(score_en(line, say_word))
 
-                data = lines_reply[c_score.index(max(c_score))]
+                if STATE == '2':
+                    data = lines[c_score.index(max(c_score))].split("\n")[0] + "," + lines_reply[c_score.index(max(c_score))]
+                else:
+                    data = lines_reply[c_score.index(max(c_score))]
+
+
                 self.request.sendall(data.encode('utf-8'))  # 将信息发送给客户端
         except BaseException:
             print(address, pid, " has been exit!")
