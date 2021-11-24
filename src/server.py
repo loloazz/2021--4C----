@@ -136,8 +136,6 @@ BUF_SIZE = 1024
 STATE = '1'  # 默认的数据状态
 
 
-
-
 class Handler(BaseRequestHandler):
 
     def handle(self):
@@ -158,32 +156,32 @@ class Handler(BaseRequestHandler):
                     self.request.sendall(data.encode('utf-8'))  # 将信息发送给客户端
                     print("返回的数据是：", data)
                     continue
+                else:
+                    # 输入发送的信息
+                    if data == '1':
+                        print("你已进入闲聊模式")
+                        request = paths.get("chat", "request")
+                        response = paths.get("chat", "response")
+                        data = "你已进入闲聊模式"
+                        STATE = '1'  # 修改状态
+                        self.request.sendall(data.encode('utf-8'))  # 将信息发送给客户端
+                        continue
 
-                # 输入发送的信息
-                if data == '1':
-                    print("你已进入闲聊模式")
-                    request = paths.get("chat", "request")
-                    response = paths.get("chat", "response")
-                    data = "你已进入闲聊模式"
-                    STATE = '1'  # 修改状态
-                    self.request.sendall(data.encode('utf-8'))  # 将信息发送给客户端
-                    continue
+                    if data == '2':
+                        request = paths.get("poems", "request")
+                        response = paths.get("poems", "response")
+                        data = "你已进入古诗模式"
+                        STATE = '2'  # 修改状态
+                        self.request.sendall(data.encode('utf-8'))  # 将信息发送给客户端
+                        continue
 
-                if data == '2':
-                    request = paths.get("poems", "request")
-                    response = paths.get("poems", "response")
-                    data = "你已进入古诗模式"
-                    STATE = '2'  # 修改状态
-                    self.request.sendall(data.encode('utf-8'))  # 将信息发送给客户端
-                    continue
-
-                if data == '3':
-                    request = paths.get("english", "request")
-                    response = paths.get("english", "response")
-                    data = "你以进入英文模式"
-                    STATE = '3'  # 修改状态
-                    self.request.sendall(data.encode('utf-8'))  # 将信息发送给客户端
-                    continue
+                    if data == '3':
+                        request = paths.get("english", "request")
+                        response = paths.get("english", "response")
+                        data = "你以进入英文模式"
+                        STATE = '3'  # 修改状态
+                        self.request.sendall(data.encode('utf-8'))  # 将信息发送给客户端
+                        continue
 
                 say_word = data
 
@@ -201,11 +199,13 @@ class Handler(BaseRequestHandler):
                     for line in lines:
                         c_score.append(score_en(line, say_word))
 
+                # 针对古诗模式对的输出进行改进
+
                 if STATE == '2':
-                    data = lines[c_score.index(max(c_score))].split("\n")[0] + "," + lines_reply[c_score.index(max(c_score))]
+                    data = lines[c_score.index(max(c_score))].split("\n")[0] + "," + lines_reply[
+                        c_score.index(max(c_score))]
                 else:
                     data = lines_reply[c_score.index(max(c_score))]
-
 
                 self.request.sendall(data.encode('utf-8'))  # 将信息发送给客户端
         except BaseException:
@@ -217,10 +217,11 @@ if __name__ == '__main__':
     response = paths.get("chat", "request")
     request = paths.get("chat", "response")
 
+
     HOST = '127.0.0.1'  # 配置主机名
     PORT = 8998  # 配置端口号
     ADDR = (HOST, PORT)
     server = ThreadingTCPServer(ADDR, Handler)  # 参数为监听地址和已建立连接的处理类
     print('wait connect....')
     server.serve_forever()  # 监听，建立好TCP连接后，为该连接创建新的socket和线程，并由处理类中的handle方法处理
-    print(server)
+
