@@ -25,8 +25,8 @@ def init_window():
     # 窗口信息
     layout = [[(sg.Text('Answer like a flow robot', size=[40, 1]))],
               [sg.Output(size=(80, 20))],
-              [sg.Multiline(key='shibie', size=(70, 5),  do_not_clear=False),
-               sg.Submit('发送', button_color=(sg.YELLOWS[0], sg.BLUES[0])),
+              [sg.Multiline(size=(70, 5), enter_submits=True, do_not_clear=False),
+               sg.Button('发送', button_color=(sg.YELLOWS[0], sg.BLUES[0])),
                sg.Button('退出', button_color=(sg.YELLOWS[0], sg.GREENS[0]))]
 
               ]
