@@ -25,7 +25,7 @@ def init_window():
     # 窗口信息
     layout = [[(sg.Text('Answer like a flow robot', size=[40, 1]))],
               [sg.Output(size=(80, 20))],
-              [sg.Multiline(size=(70, 5),  do_not_clear=False),
+              [sg.Multiline(key='shibie', size=(70, 5),  do_not_clear=False),
                sg.Submit('发送', button_color=(sg.YELLOWS[0], sg.BLUES[0])),
                sg.Button('退出', button_color=(sg.YELLOWS[0], sg.GREENS[0]))]
 
@@ -59,7 +59,6 @@ if __name__ == '__main__':
                 print("小马回答：" + "你输入的信息为空，请重新输入")  # 输出收到的信息
 
             else:
-
                 print("主人： " + value[0])
                 print("小马回答：" + data)  # 输出收到的信息
                 print()
