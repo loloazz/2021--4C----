@@ -4,6 +4,8 @@ import socket, sys
 
 from pyfiglet import Figlet
 
+from src.yuyinshibie import my_record, getToken, get_audio, speech2text, FILEPATH, DISHOST
+
 
 def printLogo():
     f = Figlet(font='starwars')
@@ -70,10 +72,19 @@ if __name__ == '__main__':
 
         elif event == 'Speak':
                 state=1
-                print("语音识别结果:")
+                # '1536：普通话(简单英文),1537:普通话(有标点),1737:英语,1637:粤语,1837:四川话
+                devpid = 1537
+                my_record()
+                TOKEN = getToken(DISHOST)
+                speech = get_audio(FILEPATH)
+                result = speech2text(speech, TOKEN, int(devpid))
+                print("语音识别结果:"+result)
                 print()
-                pass
 
-        elif event is None or event == "退出":
-            window.close()
-            break
+
+        if event is None or event == "退出":
+          break
+
+
+    window.close()
+    sock.close()

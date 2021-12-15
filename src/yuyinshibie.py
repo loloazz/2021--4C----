@@ -14,7 +14,8 @@ base_url = "https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credenti
 APIKey = "3tZfFY8LZqqSVBl6x8AYACUv"
 SecretKey = "cLlM21MXSm20d3MYPtUnPnZ4M9oOE9YE"
 
-HOST = base_url % (APIKey, SecretKey)
+
+DISHOST = base_url % (APIKey, SecretKey)
 
 
 def getToken(host):
@@ -40,7 +41,7 @@ def my_record():
     t = time.time()
     print('正在录音...')
 
-    while time.time() < t + 4:  # 秒
+    while time.time() < t + 5:  # 秒  在这个设置录音秒数
         string_audio_data = stream.read(num_samples)
         my_buf.append(string_audio_data)
     print('录音结束.')
