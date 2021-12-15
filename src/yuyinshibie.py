@@ -84,21 +84,6 @@ def speech2text(speech_data, token, dev_pid=1537):
         return Result
 
 
-def openbrowser(text):
-    maps = {
-        '百度': ['百度', 'baidu'],
-        '腾讯': ['腾讯', 'tengxun'],
-        '网易': ['网易', 'wangyi']
-
-    }
-    if text in maps['百度']:
-        webbrowser.open_new_tab('https://www.baidu.com')
-    elif text in maps['腾讯']:
-        webbrowser.open_new_tab('https://www.qq.com')
-    elif text in maps['网易']:
-        webbrowser.open_new_tab('https://www.163.com/')
-    else:
-        webbrowser.open_new_tab('https://www.baidu.com/s?wd=%s' % text)
 
 
 if __name__ == '__main__':
@@ -111,7 +96,5 @@ if __name__ == '__main__':
         speech = get_audio(FILEPATH)
         result = speech2text(speech, TOKEN, int(devpid))
         print(result)
-        if type(result) == str:
-            openbrowser(result.strip('，'))
-        flag = input('Continue?(y/n):')
+
 

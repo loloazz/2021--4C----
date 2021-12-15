@@ -66,6 +66,6 @@ if __name__ == '__main__':
         if event == sg.WINDOW_CLOSED or event == "退出":
             break
 
-
-    sock.close()
     window.close()
+    sock.close()
+
