@@ -3,7 +3,6 @@ import requests
 import time
 import base64
 from pyaudio import PyAudio, paInt16
-import webbrowser
 
 framerate = 16000  # 采样率
 num_samples = 2000  # 采样点

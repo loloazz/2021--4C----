@@ -4,6 +4,8 @@ import socket, sys
 
 from pyfiglet import Figlet
 
+from src.yuyinshibie import my_record, getToken, speech2text, get_audio, FILEPATH
+
 
 def printLogo():
     f = Figlet(font='starwars')
@@ -27,7 +29,8 @@ def init_window():
               [sg.Output(size=(80, 20))],
               [sg.Multiline(size=(70, 5), enter_submits=True, do_not_clear=False),
                sg.Button('发送', button_color=(sg.YELLOWS[0], sg.BLUES[0])),
-               sg.Button('退出', button_color=(sg.YELLOWS[0], sg.GREENS[0]))]
+               sg.Button('退出', button_color=(sg.YELLOWS[0], sg.GREENS[0])),
+               sg.ReadButton('Speak')]
 
               ]
 
@@ -62,9 +65,21 @@ if __name__ == '__main__':
                 print("主人： " + value[0])
                 print("小马回答：" + data)  # 输出收到的信息
                 print()
+        if event == 'Speak':
+            # with m as source:
+            #     r.adjust_for_ambient_noise(source)
+            #     audio = r.listen(source)
+            #     value = r.recognize_google(audio, language="en-US")
+            #     print(value)
 
-        if event == sg.WINDOW_CLOSED or event == "退出":
+            my_record()
+            TOKEN = getToken(HOST)
+            speech = get_audio(FILEPATH)
+            result = speech2text(speech, TOKEN, int(1537))
+
+        if event is None or event == 'Exit':
             break
+
 
     window.close()
     sock.close()
