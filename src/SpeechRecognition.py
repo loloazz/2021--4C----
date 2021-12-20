@@ -14,7 +14,6 @@ base_url = "https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credenti
 APIKey = "3tZfFY8LZqqSVBl6x8AYACUv"
 SecretKey = "cLlM21MXSm20d3MYPtUnPnZ4M9oOE9YE"
 
-
 DISHOST = base_url % (APIKey, SecretKey)
 
 
@@ -82,19 +81,3 @@ def speech2text(speech_data, token, dev_pid=1537):
         return Result['result'][0]
     else:
         return Result
-
-
-
-
-if __name__ == '__main__':
-    flag = 'y'
-    while flag.lower() == 'y':
-        print('请输入数字选择语言：')
-        devpid = input('1536：普通话(简单英文),1537:普通话(有标点),1737:英语,1637:粤语,1837:四川话\n')
-        my_record()
-        TOKEN = getToken(HOST)
-        speech = get_audio(FILEPATH)
-        result = speech2text(speech, TOKEN, int(devpid))
-        print(result)
-
-
